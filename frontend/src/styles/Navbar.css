@@ -1,0 +1,317 @@
+/* Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 0 40px;
+  height: 64px;
+  box-shadow: 0 2px 8px rgba(28, 43, 61, 0.08);
+  position: relative;
+  z-index: 1000;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: 100%;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+  border-right: 1px solid #e0e0e0;
+  height: 100%;
+}
+
+.navbar-logo img {
+  height: 28px;
+  width: auto;
+}
+
+.dropdown {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #1c2b3d;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 15px;
+  height: 100%;
+  transition: all 0.2s ease;
+}
+
+.dropdown-button:hover {
+  color: #2563eb;
+  background: #f8fafc;
+}
+
+.arrow {
+  font-size: 10px;
+  color: #64748b;
+  margin-left: 4px;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  min-width: 800px;
+  padding: 20px 0;
+  z-index: 1000;
+  max-height: 70vh;
+  overflow-y: auto;
+  display: flex;
+}
+
+/* Scrollable Sections */
+.category-list,
+.submenu-list,
+.company-list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Insurance Dropdown */
+.category-list {
+  min-width: 240px;
+  border-right: 1px solid #e2e8f0;
+  padding: 0 20px;
+}
+
+.category-item {
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 14px;
+  color: #1c2b3d;
+  border-radius: 4px;
+  margin: 2px 0;
+  transition: all 0.2s ease;
+}
+
+.category-item:hover {
+  background: #f1f5f9;
+  color: #2563eb;
+}
+
+.category-item.active {
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.submenu-list {
+  min-width: 220px;
+  padding: 0 20px;
+  border-right: 1px solid #e2e8f0;
+}
+
+.submenu-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1c2b3d;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.submenu-item {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 14px;
+  color: #475569;
+  border-radius: 4px;
+  margin: 2px 0;
+  transition: all 0.2s ease;
+}
+
+.submenu-item:hover {
+  background: #f1f5f9;
+  color: #2563eb;
+}
+
+/* Modified Company Column */
+/* Company Column - Third Column */
+.company-column {
+  padding: 0 20px;
+  min-width: 280px;
+  border-left: 1px solid #e2e8f0;
+  height: 100%;
+}
+
+.company-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Optional spacing between companies */
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+
+.company-item {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #475569;
+  break-inside: avoid;
+  margin: 2px 0;
+  transition: all 0.2s ease;
+}
+
+.company-item:hover {
+  color: #2563eb;
+}
+
+.all-companies {
+  color: #2563eb !important;
+  font-weight: 600 !important;
+  display: block;
+  margin-bottom: 12px;
+  padding: 0 15px;
+}
+
+/* News Dropdown */
+.news-dropdown {
+  min-width: 100px;
+  padding: 20px;
+}
+
+.news-list {
+  column-count: 1;
+  column-gap: 10px;
+}
+
+.news-sub-column {
+  border-left: 1px solid #e2e8f0;
+  padding-left: 20px;
+  margin-left: 20px;
+}
+
+/* Right Side */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.track-download {
+  font-size: 14px;
+  color: #475569;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.track-download:hover {
+  color: #2563eb;
+}
+
+.login-btn {
+  background:rgb(243, 70, 83);
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.login-btn:hover {
+  background: #1d4ed8;
+}
+
+/* Additional Elements */
+.nav-item {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+  color: #2563eb;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .navbar {
+    padding: 0 20px;
+  }
+  
+  .navbar-left {
+    gap: 15px;
+  }
+  
+  .dropdown-button {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  .dropdown-content {
+    min-width: 600px;
+  }
+  
+  .company-column {
+    min-width: 200px;
+  }
+}
+
+/* Style arrows */
+.arrow-right {
+  float: right;
+  font-size: 1.25rem;
+  margin-left: 10px;
+}
+.arrow-right1 {
+  float: right;
+  font-size: 1.0rem;
+  margin-right: 10px;
+}

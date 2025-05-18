@@ -1,0 +1,180 @@
+.insurance-partners {
+  padding: 60px 0;
+  background-color: #f9f9f9;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.title-wrapper {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title-wrapper h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333846;
+    padding: 0;
+}
+
+.subtext {
+  font-size: 16px;
+  color: #666;
+}
+
+.tabs-container {
+  margin-bottom: 30px;
+}
+
+.tabs-list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 1px;
+}
+
+/* Tabs List Item Styling */
+.tabs-list li {
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: var(--font-medium);
+  transition: all 0.3s ease;
+  font-size: var(--font-size-14);
+  color: var(--color-black); /* Default text color */
+  background-color: var(--color-white); /* No background color initially */
+  border: 1px solid var(--border-color-light); /* Light border around tabs */
+  text-decoration: none; /* Ensure no underline initially */
+}
+
+.tabs-list li:hover {
+  background-color: transparent; /* No background color on hover */
+  color: blue; /* Change text color to blue */
+  text-decoration: underline; /* Underline text on hover */
+}
+
+.tabs-list li:active {
+  color: blue; /* Retain blue text on click */
+  text-decoration: none; /* Remove underline when clicked (optional) */
+}
+
+
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-btn {
+  background-color: transparent;
+  border: none; /* Remove border */
+  font-size: 30px;
+  cursor: pointer;
+  padding: 10px;
+  color: #333;
+  transition: none; /* Remove any transition */
+}
+
+.nav-btn:hover {
+  background-color: transparent; /* No background change on hover */
+  color:#f34653; /* Keep the text color the same */
+}
+
+.nav-btn:disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  height:auto;
+  flex-grow: 1;
+  padding: 0 10px;
+}
+
+.partner-card {
+
+  color: #007fff;
+    font-weight: 600;
+}
+
+.partner-card:hover {
+  transform: translateY(-5px);
+  height: 100%; 
+}
+
+.image-area {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* centers horizontally */
+  justify-content: center; /* centers vertically */
+  height: 100%;            /* ensures full height for vertical centering */
+  text-align: center;
+}
+
+.partner-link {
+  text-decoration: none;
+  color: #333;
+}
+
+.image-container {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;             /* fixed height for uniformity */
+  width: 100%;
+}
+
+.partner-logo {
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.partner-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1c1c1c;
+  text-align: center;
+  padding: 0 5px;
+  line-height: 1.5;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-height: none;          /* Remove any height restriction */
+  overflow: visible;         /* Ensure text is not clipped */
+  min-height: 40px;          /* Optional: Set a reasonable base height */
+}
+
+
+
+@media (max-width: 1024px) {
+  .partners-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .partners-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .carousel-wrapper {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-btn {
+    margin: 10px 0;
+  }
+}

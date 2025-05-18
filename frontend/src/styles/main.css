@@ -1,0 +1,1445 @@
+/* Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 0 40px;
+  height: 64px;
+  box-shadow: 0 2px 8px rgba(28, 43, 61, 0.08);
+  position: relative;
+  z-index: 1000;
+  font-family: 'Inter', Arial, sans-serif;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  height: 100%;
+}
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  padding-right: 20px;
+  border-right: 1px solid #e0e0e0;
+  height: 100%;
+}
+
+.navbar-logo img {
+  height: 28px;
+  width: auto;
+}
+
+.dropdown {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  color: #1c2b3d;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 15px;
+  height: 100%;
+  transition: all 0.2s ease;
+}
+
+.dropdown-button:hover {
+  color: #2563eb;
+  background: #f8fafc;
+}
+
+.arrow {
+  font-size: 10px;
+  color: #64748b;
+  margin-left: 4px;
+}
+
+.dropdown-content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  min-width: 800px;
+  padding: 20px 0;
+  z-index: 1000;
+  max-height: 70vh;
+  overflow-y: auto;
+  display: flex;
+}
+
+/* Scrollable Sections */
+.category-list,
+.submenu-list,
+.company-list {
+  max-height: 320px;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+/* Insurance Dropdown */
+.category-list {
+  min-width: 240px;
+  border-right: 1px solid #e2e8f0;
+  padding: 0 20px;
+}
+
+.category-item {
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 14px;
+  color: #1c2b3d;
+  border-radius: 4px;
+  margin: 2px 0;
+  transition: all 0.2s ease;
+}
+
+.category-item:hover {
+  background: #f1f5f9;
+  color: #2563eb;
+}
+
+.category-item.active {
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.submenu-list {
+  min-width: 220px;
+  padding: 0 20px;
+  border-right: 1px solid #e2e8f0;
+}
+
+.submenu-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1c2b3d;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+}
+
+.submenu-item {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 14px;
+  color: #475569;
+  border-radius: 4px;
+  margin: 2px 0;
+  transition: all 0.2s ease;
+}
+
+.submenu-item:hover {
+  background: #f1f5f9;
+  color: #2563eb;
+}
+
+.company-column {
+  padding: 0 20px;
+  min-width: 220px;
+  border-left: 1px solid #e2e8f0;
+}
+
+.company-list {
+  display: block;
+  column-count: 1;
+  column-gap: 0;
+}
+
+.company-item {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  font-size: 14px;
+  color: #475569;
+  break-inside: unset;
+  margin: 2px 0;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.company-item:hover {
+  color: #2563eb;
+}
+
+.all-companies {
+  color: #2563eb !important;
+  font-weight: 600 !important;
+  display: block;
+  margin-bottom: 12px;
+  padding: 0 15px;
+}
+
+.news-dropdown {
+  min-width: 400px;
+  padding: 20px;
+}
+
+.news-list {
+  column-count: 2;
+  column-gap: 30px;
+}
+
+.news-sub-column {
+  border-left: 1px solid #e2e8f0;
+  padding-left: 20px;
+  margin-left: 20px;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.track-download {
+  font-size: 14px;
+  color: #475569;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.track-download:hover {
+  color: #2563eb;
+}
+
+.login-btn {
+  background: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.login-btn:hover {
+  background: #1d4ed8;
+}
+
+.nav-item {
+  font-size: 14px;
+  color: #475569;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.nav-item:hover {
+  color: #2563eb;
+}
+
+@media (max-width: 1200px) {
+  .navbar {
+    padding: 0 20px;
+  }
+  
+  .navbar-left {
+    gap: 15px;
+  }
+  
+  .dropdown-button {
+    font-size: 13px;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  .dropdown-content {
+    min-width: 600px;
+  }
+  
+  .company-column {
+    min-width: 200px;
+  }
+}
+
+/* Carousel Styles */
+.carousel-wrapper {
+  width: 100%;
+  max-width: 755px;
+  height: 117.453px;
+  margin: 20px auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-slider {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.carousel-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel-dots {
+  text-align: center;
+  margin-top: 8px;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: #d9d9d9;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 4px;
+  transition: background 0.3s ease;
+}
+
+.dot.active {
+  background: #007bff;
+}
+
+/* Insurance Cards Grid */
+.insurance-wrapper {
+  padding: 20px;
+  background-color: #fff;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.tabgrp {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 126px;
+  gap: 20px;
+  list-style: none;
+  padding: 20px 50px;
+  margin: 0;
+  background: #fff;
+  border: 1px solid rgba(50, 55, 69, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+}
+
+.tabgrp li {
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  padding: 12px 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.tabgrp li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.tabgrp a {
+  text-decoration: none;
+  color: #333;
+  width: 100%;
+  height: 100%;
+}
+
+.image-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.image-container img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.title {
+  margin-top: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333846;
+}
+
+.badgechip {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 500;
+  border-radius: 5px;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  white-space: nowrap;
+}
+
+.redchip {
+  background-color: #f34653;
+}
+
+.greenchip {
+  background-color: #3a9f59;
+}
+
+.placeholder {
+  visibility: hidden;
+}
+
+.shimmerBG {
+  background: linear-gradient(90deg, #f6f7f8 25%, #eaeaea 50%, #f6f7f8 75%);
+  background-size: 400% 100%;
+  animation: shimmer 1.2s ease-in-out infinite;
+  height: 100px;
+  width: 100px;
+  border-radius: 12px;
+}
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@media screen and (max-width: 1023px) {
+  .tabgrp {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .tabgrp li {
+    height: 110px;
+  }
+
+  .image-container img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .title {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .tabgrp {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .tabgrp li {
+    height: 100px;
+  }
+}
+
+/* Third Column Vertical Scroll */
+.column-3 {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 70vh;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+.column-3::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.column-3::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.column-3::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.column-3::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.column-3 * {
+  max-width: 100%;
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+/* Other Components */
+#idAchieve {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  padding: 20px 0;
+  margin: 20px auto;
+  flex-wrap: wrap;
+}
+
+.achievement {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.achIcon img {
+  width: 45px;
+  height: 45px;
+}
+
+.achContain {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #212529;
+}
+
+.achContain span {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: normal;
+  color: #6c757d;
+}
+
+.benefits-section {
+  background-color: #f8f9fa;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.benefits-section h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.benefits-section .subtitle {
+  font-size: 1rem;
+  color: #6c757d;
+  margin-bottom: 40px;
+}
+
+.benefit-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.benefit-card {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  max-width: 350px;
+  padding: 20px;
+  text-align: left;
+  transition: transform 0.3s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+}
+
+.benefit-card img {
+  display: block;
+  margin: 0 auto 20px;
+  width: 120px;
+  height: 120px;
+}
+
+.benefit-card .title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #333846;
+  padding: 12px 0 6px;
+}
+
+.benefit-card p {
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.how-it-works {
+  background-color: #fff;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.how-it-works h2 {
+  font-size: 32px;
+  font-weight: 600;
+  margin-bottom: 40px;
+}
+
+.steps-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.step {
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  max-width: 320px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.step img.step-icon {
+  width: 98px;
+  height: 88px;
+  margin-bottom: 15px;
+}
+
+.step .title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.step p {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+}
+
+.step-arrow {
+  width: 101px;
+  right: -62px;
+  display: block;
+  position: absolute;
+  height: 147px;
+  top: -42px;
+  margin: 20px auto 0;
+}
+
+@media (max-width: 992px) {
+  .step-arrow {
+    display: none;
+  }
+}
+
+
+
+/*login page css*/
+
+
+/* Enhanced Form Container */
+.form-container {
+  width: 100%;
+  max-width: 420px;
+  margin: 40px auto;
+  padding: 30px 25px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title */
+h2 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #212529;
+}
+
+/* Inputs and Select */
+input,
+select,
+button {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 12px 0;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Input background */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+  background-color: #fefefe;
+}
+
+/* Focus */
+input:focus,
+select:focus {
+  border-color: rgb(243, 70, 83); /* Focus color for better visibility */
+  box-shadow: 0 0 0 2px rgba(243, 70, 83, 0.25);
+  outline: none;
+}
+
+/* Button */
+button {
+  background-color: rgb(243, 70, 83); /* Button background set to red */
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+  border-radius: 8px;
+}
+
+button:hover {
+  background-color: rgb(223, 50, 63); /* Darker red on hover */
+}
+
+button:active {
+  background-color: rgb(203, 30, 43); /* Even darker red when active */
+}
+
+button:disabled {
+  background-color: #f5c6cb; /* Light red when disabled */
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Error Message */
+.error {
+  color: rgb(243, 70, 83); /* Error message color */
+  font-size: 15px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px;
+    margin: 20px auto;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  input,
+  select,
+  button {
+    font-size: 15px;
+    padding: 10px 12px;
+  }
+}
+/* adminDashboard.css */
+
+/* Container and Layout */
+.admin-dashboard-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Header Section */
+.admin-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.admin-dashboard-header h1 {
+  font-size: 2rem;
+  color: #1e1e2f;
+  margin: 0;
+}
+
+/* Cards Grid */
+.admin-dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.dashboard-card {
+  background-color: #f8f9fa;
+  border-left: 6px solid #007bff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-card h3 {
+  font-size: 1.1rem;
+  color: #343a40;
+  margin-bottom: 0.5rem;
+}
+
+.dashboard-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Sections for Navigation */
+.admin-section {
+  margin-top: 1.5rem;
+  padding: 1rem 1.5rem;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  background-color: #f1f3f5;
+}
+
+.admin-section h2 {
+  font-size: 1.2rem;
+  color: #212529;
+  margin-bottom: 0.5rem;
+}
+
+.admin-section a {
+  display: inline-block;
+  margin-top: 0.3rem;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.admin-section a:hover {
+  text-decoration: underline;
+}
+
+/* Logout Button */
+
+
+.logout-button {
+  background-color: #dc3545; /* Red background (Bootstrap's danger color) */
+  color: #fff; /* White text */
+  padding: 0.3rem 0.8rem; /* Reduced padding for a smaller button */
+  border: none; /* Removes default button border */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer; /* Makes the cursor a pointer when hovering */
+  font-size: 0.85rem; /* Smaller font size */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions for color and scaling */
+  max-width: 120px; /* Limit the button's maximum width */
+  width: 100%; /* Ensures the button width is constrained by max-width */
+  display: inline-block; /* Ensures button is inline and respects width */
+}
+
+.logout-button:hover {
+  background-color: #c82333; /* Darker red when hovered */
+  transform: scale(1.05); /* Slightly enlarge the button on hover */
+}
+
+.logout-button:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.5); /* Add a subtle shadow to indicate focus */
+}
+
+.logout-button:active {
+  background-color: #bd2130; /* Even darker red when clicked */
+}
+
+
+
+.insurance-plans-section {
+  padding: 2rem 1rem;
+  background-color: #f9f9f9;
+}
+
+.insurance-plans-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.scroll-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding: 0 0.5rem 1rem;
+  scroll-behavior: smooth;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none; /* Hide scrollbar on WebKit */
+}
+
+.plan-card {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+  min-width: 260px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.plan-card:hover {
+  transform: translateY(-4px);
+}
+
+.plan-logo {
+  width: 80px;
+  height: auto;
+  margin: 0 auto 0.5rem;
+}
+
+.features {
+  text-align: left;
+  font-size: 14px;
+  margin: 0.5rem 0;
+  padding-left: 1rem;
+}
+
+.price {
+  font-size: 15px;
+  margin: 0.5rem 0;
+  font-weight: bold;
+}
+
+.btn {
+  background-color: #007bff;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+/* 🔽 Responsive tweaks */
+@media (max-width: 768px) {
+  .insurance-plans-section h2 {
+    font-size: 1.25rem;
+  }
+
+  .plan-card {
+    min-width: 80%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .plan-card {
+    min-width: 90%;
+    padding: 1rem 0.75rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}
+
+/* Page wrapper */
+.insurance-form-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.06);
+}
+
+/* Top bar with logout button */
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.logout-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+  background-color: #d32f2f;
+}
+
+/* Insurance Form Styles */
+.insurance-form {
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+.insurance-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.submit-btn {
+  background-color: #2196f3;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color: #1976d2;
+}
+
+.error-message {
+  color: red;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Insurance List (Optional Cards View) */
+.insurance-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.insurance-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 220px;
+  text-align: center;
+}
+
+.company-logo {
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Insurance Table Section */
+.insurance-table-section {
+  margin-top: 2rem;
+}
+
+.insurance-table-wrapper {
+  max-height: 350px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.insurance-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.insurance-table th,
+.insurance-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.insurance-table th {
+  background-color: #f2f2f2;
+  color: #333;
+}
+
+.insurance-table img {
+  max-width: 100px;
+  height: auto;
+}
+
+/* Buy Button */
+.buy-btn {
+  background-color: #0066ff;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buy-btn:hover {
+  background-color: #004ecb;
+}
+
+/* See More */
+.see-more-container {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.see-more-btn {
+  background-color: #444;
+  color: white;
+  padding: 6px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.see-more-btn:hover {
+  background-color: #222;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .insurance-form-wrapper {
+    padding: 15px;
+  }
+
+  .insurance-table th,
+  .insurance-table td {
+    font-size: 13px;
+    padding: 8px;
+  }
+
+  .form-group input,
+  .form-group select {
+    font-size: 13px;
+  }
+
+  .submit-btn,
+  .logout-btn,
+  .buy-btn,
+  .see-more-btn {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .insurance-card {
+    width: 100%;
+  }
+}
+
+/*payment */
+.receipt-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin-top: 20px;
+  background: #f9f9f9;
+  border-radius: 10px;
+}
+
+.download-receipt-btn {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+/*buypage*/
+.buy-page-container {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.buy-page-container h2 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #1e1e1e;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.insurance-summary-card {
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  text-align: center;
+  border: 1px solid #e2e2e2;
+}
+
+.insurance-summary-card img {
+  display: block;
+  max-width: 100px;
+  margin: 0 auto 15px auto; /* Top: 0, Left/Right: auto, Bottom: 15px */
+}
+
+
+.insurance-summary-card h3 {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.insurance-summary-card p {
+  font-size: 16px;
+  color: #555;
+  margin: 6px 0;
+}
+
+.user-form-details {
+  background-color: #f4faff;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #d9efff;
+}
+
+.user-form-details h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #00558a;
+}
+
+.user-form-details ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.user-form-details li {
+  margin: 8px 0;
+  font-size: 15.5px;
+  color: #333;
+}
+
+.user-form-details strong {
+  color: #000;
+}
+
+/*myinsurance page*/
+.my-insurances-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.my-insurances-container h2 {
+  margin-bottom: 20px;
+  font-size: 28px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+.my-insurances-container table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+
+.my-insurances-container th,
+.my-insurances-container td {
+  padding: 14px 18px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.my-insurances-container th {
+  background-color: #f8f8f8;
+  color: #333;
+  font-weight: 600;
+}
+
+.my-insurances-container tr:hover {
+  background-color: #f1faff;
+}
+
+.my-insurances-container td:last-child {
+  white-space: nowrap;
+}
+
+.my-insurances-container p {
+  text-align: center;
+  font-size: 18px;
+  color: #777;
+}
+/* myInsurances.css */
+.my-insurances-container {
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.my-insurances-container h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: #2d2d2d;
+}
+
+.table-container {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.table thead {
+  background-color: #e8f0fe;
+}
+
+.table thead th {
+  padding: 14px 16px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  white-space: nowrap;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f1f5f9;
+}
+
+.table tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  color: #555;
+}
+
+.table tbody td:nth-child(3), .table tbody td:nth-child(4) {
+  font-weight: 500;
+  color: #007b5f;
+}
+
+@media screen and (max-width: 768px) {
+  .table thead {
+    display: none;
+  }
+
+  .table tbody td {
+    display: block;
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .table tbody td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 16px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .table tbody tr {
+    margin-bottom: 15px;
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px 0;
+    background-color: white;
+  }
+}
+

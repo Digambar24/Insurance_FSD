@@ -1,0 +1,40 @@
+.admin-container {
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+}
+.admin-form input,
+.admin-form select {
+  display: block;
+  margin: 10px 0;
+  padding: 8px;
+  width: 100%;
+}
+.admin-preview {
+  height: 50px;
+  margin-top: 5px;
+}
+.admin-logo {
+  height: 40px;
+}
+.admin-search {
+  margin-bottom: 20px;
+  padding: 8px;
+  width: 100%;
+}
+.admin-message {
+  color: green;
+  margin: 10px 0;
+}
+.admin-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.admin-list th,
+.admin-list td {
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+.admin-delete {
+  color: rgb(255, 255, 255);
+}

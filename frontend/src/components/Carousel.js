@@ -11,7 +11,7 @@ const slides = [
     link: '/insurance/health', // redirect target
   },
   {
-    image:b2Image , 
+    image:b2 , 
     alt: 'Slide 2',
     link: '/insurance/health',
   },

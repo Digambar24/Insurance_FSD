@@ -1,58 +1,59 @@
 // src/components/InsuranceCards.js
 import React from 'react';
-import '../styles/main.css'; // Custom CSS for this component
+import { Link } from 'react-router-dom'; // ✅ Import Link
+import '../styles/main.css';
 
 const insuranceItems = [
   {
     title: "Car Insurance",
     img: "https://www.insurancedekho.com/pwa/img/v2_icon_car.svg",
-    link: "http://localhost:3000/insurance/car",
+    link: "/insurance/car",
   },
   {
     title: "Bike Insurance",
     img: "https://www.insurancedekho.com/pwa/img/v2_icon_bike.svg",
-    link: "http://localhost:3000/insurance/bike",
+    link: "/insurance/bike",
   },
   {
     title: "Health Insurance",
     img: "https://static.insurancedekho.com/pwa/img/v2_icon_health.svg",
-    link: "http://localhost:3000/insurance/health",
+    link: "/insurance/health",
     badge: "25% Off*",
     badgeColor: "greenchip",
   },
   {
     title: "Term Insurance",
     img: "https://static.insurancedekho.com/pwa/img/v2_icon_life.svg",
-    link: "http://localhost:3000/life-insurance/term-insurance",
+    link: "/life-insurance/term-insurance",
     badge: "Save On Tax*",
     badgeColor: "greenchip",
   },
   {
     title: "Investment Plans",
     img: "https://www.insurancedekho.com/pwa/img/v2_icon_investment.svg",
-    link: "http://localhost:3000/investment-plans",
+    link: "/investment-plans",
   },
   {
     title: "Business Insurance",
     img: "https://www.insurancedekho.com/pwa/img/business_insurance.svg",
-    link: "http://localhost:3000/business-insurance",
+    link: "/business-insurance",
     badge: "New",
     badgeColor: "redchip",
   },
   {
     title: "Family Floater",
     img: "https://www.insurancedekho.com/pwa/img/v2_icon_family.svg",
-    link: "http://localhost:3000/health-insurance/family-floater",
+    link: "/health-insurance/family-floater",
   },
   {
     title: "Guaranteed Plans",
     img: "https://www.insurancedekho.com/pwa/img/v2_icon_guaranteeReturn.svg",
-    link: "http://localhost:3000/life-insurance/guaranteed-return-plans",
+    link: "/life-insurance/guaranteed-return-plans",
   },
   {
     title: "View More",
     img: "https://static.insurancedekho.com/pwa/img/v2_icon_viewmore.svg",
-    link: "http://localhost:3000/",
+    link: "/",
   },
 ];
 
@@ -64,7 +65,7 @@ const InsuranceCards = () => {
       <ul className="tabgrp">
         {insuranceItems.map((item, index) => (
           <li key={index}>
-            <a href={item.link} target="_blank" rel="noopener noreferrer">
+            <Link to={item.link}> {/* ✅ Use Link instead of <a> */}
               <div className="image-container">
                 {item.badge && (
                   <span className={`badgechip ${item.badgeColor || 'redchip'}`}>
@@ -74,7 +75,7 @@ const InsuranceCards = () => {
                 <img src={item.img} alt={item.title} height="50" />
               </div>
               <div className="title">{item.title}</div>
-            </a>
+            </Link>
           </li>
         ))}
         {Array.from({ length: placeholdersCount }).map((_, idx) => (

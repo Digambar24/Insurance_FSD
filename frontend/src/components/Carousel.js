@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // for internal navigation
 import '../styles/main.css';
-import b1Image from '../assets/b1.jpg'; // Ensure correct import path here
+import b2Image from '../assets/b2.jpeg';
 
-// Log the imported image path to the console for debugging
-console.log(b1Image);  // This should print the correct path of the image in the console
 
 const slides = [
   {
     image: 'https://static.insurancedekho.com/pwa/img/nfo/lic-desktop-banner.png',
     alt: 'LIC Banner',
+    link: '/insurance/health', // redirect target
   },
   {
-    image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMDBSUso6jTmqf7kryUGu203LzTRia8EaFXg&s', // Use the imported local image here
+    image:b2Image , 
     alt: 'Slide 2',
+    link: '/insurance/health',
   },
-  // Optional test slide with a placeholder image for troubleshooting
-  // {
-  //   image: 'https://via.placeholder.com/755x117.png?text=Slide+2',
-  //   alt: 'Placeholder Image',
-  // },
 ];
 
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,6 +30,10 @@ const Carousel = () => {
 
   const goToSlide = (index) => {
     setCurrentIndex(index);
+  };
+
+  const handleClick = (link) => {
+    navigate(link); // programmatically navigate using React Router
   };
 
   return (
@@ -47,7 +48,9 @@ const Carousel = () => {
               transition: 'transform 0.5s ease-in-out',
               width: '100%',
               display: 'flex',
+              cursor: 'pointer',
             }}
+            onClick={() => handleClick(slide.link)} // Clickable slide
           >
             <img
               src={slide.image}

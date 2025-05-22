@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar'; // Make sure this path is correct
 import '../styles/main.css';
 
 const AdminDashboard = () => {
@@ -10,8 +11,10 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const fetchSummary = async () => {
-      const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
-      if (!token) {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user'));
+
+      if (!token || user?.role !== 'admin') {
         navigate('/login');
         return;
       }
@@ -34,50 +37,53 @@ const AdminDashboard = () => {
   }, [navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem('userInfo');
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
     navigate('/');
   };
 
   if (loading) return <p style={{ textAlign: 'center' }}>Loading dashboard...</p>;
 
   return (
-    <div className="admin-dashboard-container">
-      <div className="admin-dashboard-header">
-        <h1>Admin Dashboard</h1>
-        <button onClick={handleLogout} className="logout-button">Logout</button>
-      </div>
-
-      <div className="admin-dashboard-cards">
-        <div className="dashboard-card">
-          <h3>Total Users</h3>
-          <p>{summary.totalUsers}</p>
+    <>
+      <Navbar />
+      <div className="admin-dashboard-container">
+        <div className="admin-dashboard-header">
+          <h1>Admin Dashboard</h1>
+          <button onClick={handleLogout} className="logout-button">Logout</button>
         </div>
-        <div className="dashboard-card">
-          <h3>Total Policies</h3>
-          <p>{summary.totalPolicies}</p>
+
+        <div className="admin-dashboard-cards">
+          <div className="dashboard-card">
+            <h3>Total Users</h3>
+            <p>{summary.totalUsers}</p>
+          </div>
+          <div className="dashboard-card">
+            <h3>Total Policies</h3>
+            <p>{summary.totalPolicies}</p>
+          </div>
+          <div className="dashboard-card">
+            <h3>Total Companies</h3>
+            <p>{summary.totalCompanies}</p>
+          </div>
         </div>
-        <div className="dashboard-card">
-          <h3>Total Companies</h3>
-          <p>{summary.totalCompanies}</p>
+
+        <div className="admin-section">
+          <h2>Manage Insurance Companies</h2>
+          <a href="/admin/companies">Go to Companies</a>
         </div>
-        {/* Total Revenue card removed from display */}
-      </div>
 
-      <div className="admin-section">
-        <h2>Manage Insurance Companies</h2>
-        <a href="/admin/companies">Go to Companies</a>
-      </div>
+        <div className="admin-section">
+          <h2>Manage Users</h2>
+          <a href="/admin/users">Go to Users</a>
+        </div>
 
-      <div className="admin-section">
-        <h2>Manage Users</h2>
-        <a href="/admin/users">Go to Users</a>
+        <div className="admin-section">
+          <h2>Manage Purchases</h2>
+          <a href="/admin/purchases">Go to Purchases</a>
+        </div>
       </div>
-
-      <div className="admin-section">
-        <h2>Manage Purchases</h2>
-        <a href="/admin/purchases">Go to Purchases</a>
-      </div>
-    </div>
+    </>
   );
 };
 

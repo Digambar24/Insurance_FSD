@@ -1032,18 +1032,39 @@ button:disabled {
   background-color: #d32f2f;
 }
 
-/* Insurance Form Styles */
-.insurance-form {
+/* InsuranceDekho-like Insurance Form Styles */
+.insurance-form-wrapper {
   padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #f9f9f9;
+  max-width: 1200px;
+  margin: auto;
 }
 
-.insurance-form h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+.top-bar {
+  text-align: right;
+  margin-bottom: 10px;
+}
+
+.logout-btn {
+  padding: 6px 12px;
+  background: #d32f2f;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-image-layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center; /* Changed from flex-start to center */
+  gap: 20px; /* Optional: adds spacing between form and image */
+  min-height: 400px; /* Optional: ensures enough height for vertical centering */
+}
+
+.insurance-form {
+  flex: 1;
+  min-width: 300px;
 }
 
 .form-group {
@@ -1054,39 +1075,86 @@ button:disabled {
   display: block;
   margin-bottom: 6px;
   font-weight: bold;
-  color: #333;
 }
 
 .form-group input,
 .form-group select {
   width: 100%;
-  padding: 10px 12px;
+  padding: 8px;
+  border-radius: 5px;
   border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
 }
 
 .submit-btn {
-  background-color: #2196f3;
+  background: #d32f2f;
   color: white;
   padding: 10px 20px;
   border: none;
-  font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
 }
 
-.submit-btn:hover {
-  background-color: #1976d2;
-}
-
-.error-message {
-  color: red;
+.form-image-container {
+  flex: 1;
+  min-width: 250px;
+  display: flex; /* Added */
+  align-items: center; /* Vertically center image */
+  justify-content: center; /* Horizontally center image inside container */
   text-align: center;
-  margin-top: 15px;
 }
+
+.form-image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+.error-text {
+  color: red;
+  font-size: 0.9em;
+}
+
+.insurance-table-section {
+  margin-top: 40px;
+}
+
+.insurance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.insurance-table th,
+.insurance-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.buy-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.see-more-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.see-more-btn {
+  background-color: #ffc107;
+  color: black;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
 
 /* Insurance List (Optional Cards View) */
 .insurance-list {

@@ -1,7 +1,6 @@
-// redux/slices/authSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
-// Try to get user from localStorage
+// Try to get user and token from localStorage
 const savedUser = localStorage.getItem('user');
 const savedToken = localStorage.getItem('token');
 

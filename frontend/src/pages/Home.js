@@ -2,7 +2,7 @@ import React from 'react';
 import InsuranceCards from '../components/InsuranceCards';
 import '../styles/main.css';
 import InsurancePartners from '../components/InsurancePartners/InsurancePartners';
-
+import TestimonialsCarousel from '../components/Testimonials/TestimonialsCarousel'; // ✅ import carousel
 
 const HomePage = () => {
   return (
@@ -79,13 +79,15 @@ const HomePage = () => {
             <div className="title">Make Payment and Sit Back</div>
             <p>Pay online and receive your policy in your inbox instantly.</p>
           </div>
-
         </div>
       </div>
-      <InsurancePartners/>
 
+      {/* ✅ Testimonials Carousel Section */}
+      <TestimonialsCarousel />
+
+      {/* Insurance Partners Section */}
+      <InsurancePartners />
     </div>
-    
   );
 };
 

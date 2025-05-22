@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { registerUser } from '../redux/actions/authActions';
+import { loginStart, registerSuccess, loginFailure } from '../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/main.css';
 
 const RegisterPage = () => {
@@ -13,21 +14,66 @@ const RegisterPage = () => {
     name: '',
     email: '',
     phone: '',
+    dob: '',
     password: '',
-    userType: 'user',
+    role: 'user',  // fixed as 'user'
   });
 
+  const [validationError, setValidationError] = useState('');
+
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e) => {
+  const validateForm = () => {
+    const { name, email, phone, dob, password } = formData;
+
+    if (!name || !email || !phone || !dob || !password) {
+      return 'Please fill in all fields.';
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) return 'Invalid email address.';
+
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(phone)) return 'Phone number must be 10 digits.';
+
+    if (password.length < 6) return 'Password must be at least 6 characters.';
+
+    const dobDate = new Date(dob);
+    const today = new Date();
+    if (dobDate >= today) return 'Date of Birth must be in the past.';
+
+    return '';
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.phone || !formData.password) {
-      alert('Please fill in all fields');
+    const errorMsg = validateForm();
+
+    if (errorMsg) {
+      setValidationError(errorMsg);
       return;
     }
-    dispatch(registerUser(formData));
+
+    setValidationError('');
+    dispatch(loginStart());
+
+    try {
+      const trimmedData = {
+        ...formData,
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        phone: formData.phone.trim(),
+        // role is always 'user'
+      };
+
+      const { data } = await axios.post('http://localhost:5000/api/auth/register', trimmedData);
+      dispatch(registerSuccess(data));
+      navigate('/profile');
+    } catch (err) {
+      dispatch(loginFailure(err.response?.data?.message || err.message || 'Registration failed'));
+    }
   };
 
   useEffect(() => {
@@ -69,8 +115,17 @@ const RegisterPage = () => {
           type="tel"
           name="phone"
           placeholder="Phone Number"
+          maxLength={10}
           onChange={handleChange}
           value={formData.phone}
+          required
+        />
+        <input
+          type="date"
+          name="dob"
+          placeholder="Date of Birth"
+          onChange={handleChange}
+          value={formData.dob}
           required
         />
         <input
@@ -81,17 +136,12 @@ const RegisterPage = () => {
           value={formData.password}
           required
         />
-        <select
-          name="userType"
-          onChange={handleChange}
-          value={formData.userType}
-        >
-          <option value="user">User</option>
-        </select>
+        {/* No role select - role fixed to 'user' */}
         <button type="submit" disabled={loading}>
           {loading ? 'Registering...' : 'Register'}
         </button>
       </form>
+      {validationError && <p className="error">{validationError}</p>}
       {error && <p className="error">{error}</p>}
     </div>
   );

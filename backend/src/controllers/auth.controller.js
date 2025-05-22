@@ -5,24 +5,27 @@ const generateToken = require('../utils/generateToken');
 // @route   POST /api/auth/register
 // @access  Public
 const registerUser = async (req, res) => {
-  const { name, email, phone, password, role } = req.body;
+  const { name, email, phone, password, role, dob } = req.body;
 
-  if (!name || !email || !phone || !password) {
-    return res.status(400).json({ message: 'All fields are required' });
+  if (!name || !email || !phone || !password || !dob) {
+    return res.status(400).json({ message: 'All fields are required including date of birth' });
   }
 
   try {
+    // Check if user with the same email already exists
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({ message: 'User already exists' });
     }
 
+    // Create new user
     const user = await User.create({
       name,
       email,
       phone,
       password,
       role: role || 'user',
+      dob: new Date(dob),
     });
 
     if (user) {
@@ -32,6 +35,7 @@ const registerUser = async (req, res) => {
         email: user.email,
         phone: user.phone,
         role: user.role,
+        dob: user.dob,
         token: generateToken(user._id),
       });
     } else {
@@ -58,6 +62,7 @@ const loginUser = async (req, res) => {
         email: user.email,
         phone: user.phone,
         role: user.role,
+        dob: user.dob,
         token: generateToken(user._id),
       });
     } else {
@@ -82,6 +87,7 @@ const getUserProfile = async (req, res) => {
     email: req.user.email,
     phone: req.user.phone,
     role: req.user.role,
+    dob: req.user.dob,
   });
 };
 
@@ -102,7 +108,7 @@ const resetPassword = async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    user.password = newPassword; // Password will be hashed in the model pre-save hook
+    user.password = newPassword; // will be hashed by pre-save hook
     await user.save();
 
     res.status(200).json({ message: 'Password updated successfully' });

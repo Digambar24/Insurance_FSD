@@ -11,8 +11,13 @@ const AdminPurchases = () => {
 
   useEffect(() => {
     const fetchPurchases = async () => {
-      const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
-      if (!token) {
+      const userInfo = localStorage.getItem('userInfo');
+      const token = userInfo ? JSON.parse(userInfo).token : null;
+      const user = userInfo ? JSON.parse(userInfo) : null;
+
+      if (!token || user.role !== 'admin') {
+        setError('Access denied. Admins only.');
+        setLoading(false);
         navigate('/login');
         return;
       }

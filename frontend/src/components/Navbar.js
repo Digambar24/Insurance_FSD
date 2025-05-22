@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/slices/authSlice';
+import { toast } from 'react-toastify';
 import '../styles/Navbar.css';
 
 const Navbar = () => {
@@ -17,10 +18,14 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+  const justLoggedOut = useRef(false);
 
+  // Logout handler with toast and redirect
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/login');
+    justLoggedOut.current = true;
+    toast.success('Logged out successfully!');
+    navigate('/');
   };
 
   useEffect(() => {
@@ -38,7 +43,7 @@ const Navbar = () => {
         'Bike Insurance': 'Bike',
         'Life Insurance': 'Life',
         'Term Insurance': 'Term',
-        'Investment': 'Investment',
+        Investment: 'Investment',
       };
       const apiType = typeMap[activeCategory] || activeCategory;
       fetch(`http://localhost:5000/api/insurance-companies?type=${apiType}`)
@@ -51,18 +56,35 @@ const Navbar = () => {
   }, [activeCategory]);
 
   const advisorLocations = [
-    'New Delhi', 'Gurgaon', 'Faridabad', 'Ghaziabad', 'Noida', 'Kolkata',
-    'Hyderabad', 'Lucknow', 'Mumbai', 'Pune', 'Bangalore',
+    'New Delhi',
+    'Gurgaon',
+    'Faridabad',
+    'Ghaziabad',
+    'Noida',
+    'Kolkata',
+    'Hyderabad',
+    'Lucknow',
+    'Mumbai',
+    'Pune',
+    'Bangalore',
   ];
 
   const supportItems = [
-    'Renew Policy', 'Track Policy', 'Download Policy', 'Call Us 7551196989',
+    'Renew Policy',
+    'Track Policy',
+    'Download Policy',
+    'Call Us 7551196989',
   ];
 
   const newsItems = [
-    'Car Insurance', 'Bike Insurance News', 'Health Insurance News',
-    'Life Insurance News', 'Term Insurance News', 'Investment News',
-    'Business Insurance News', 'Travel Insurance Articles',
+    'Car Insurance',
+    'Bike Insurance News',
+    'Health Insurance News',
+    'Life Insurance News',
+    'Term Insurance News',
+    'Investment News',
+    'Business Insurance News',
+    'Travel Insurance Articles',
   ];
 
   return (
@@ -93,7 +115,9 @@ const Navbar = () => {
                 {categories.map((category) => (
                   <li
                     key={category._id}
-                    className={`category-item ${activeCategory === category.name ? 'active' : ''}`}
+                    className={`category-item ${
+                      activeCategory === category.name ? 'active' : ''
+                    }`}
                     onMouseEnter={() => setActiveCategory(category.name)}
                   >
                     {category.name} ▶

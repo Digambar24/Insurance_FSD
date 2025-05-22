@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import '../styles/main.css';
-
 
 const MyInsurances = () => {
   const [purchases, setPurchases] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+  const { user } = useSelector((state) => state.auth); // <-- get user from Redux
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPurchases = async () => {
-      if (!userInfo) {
+      if (!user || !user.token) {
         setError('User is not logged in');
         setLoading(false);
+        navigate('/login');
         return;
       }
 
       try {
         const config = {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
+          headers: { Authorization: `Bearer ${user.token}` },
         };
         const { data } = await axios.get('http://localhost:5000/api/purchases/my', config);
         setPurchases(data);
@@ -32,7 +36,7 @@ const MyInsurances = () => {
     };
 
     fetchPurchases();
-  }, [userInfo]);
+  }, [user, navigate]);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;

@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+} from '../redux/slices/authSlice';
 import '../styles/main.css';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { user, error } = useSelector(state => state.auth);
 
   useEffect(() => {
-    const user = localStorage.getItem('userInfo');
     if (user) {
-      const parsedUser = JSON.parse(user);
-      redirectAfterLogin(parsedUser.role);
+      redirectAfterLogin(user.role);
     }
-  }, []);
+  }, [user]);
 
   const redirectAfterLogin = (role) => {
     const redirectData = localStorage.getItem('redirectAfterLogin');
@@ -34,17 +39,17 @@ const LoginPage = () => {
   };
 
   const handleLogin = async () => {
+    dispatch(loginStart());
+
     try {
       const { data } = await axios.post('http://localhost:5000/api/auth/login', {
         email,
         password,
       });
 
-      localStorage.setItem('userInfo', JSON.stringify(data));
-      setMessage('Login successful!');
-      redirectAfterLogin(data.role);
+      dispatch(loginSuccess({ user: data, token: data.token }));
     } catch (error) {
-      setMessage(error.response?.data?.message || 'Login failed');
+      dispatch(loginFailure(error.response?.data?.message || 'Login failed'));
     }
   };
 
@@ -73,7 +78,9 @@ const LoginPage = () => {
         onChange={e => setPassword(e.target.value)}
       /><br />
       <button onClick={handleLogin}>Login</button>
-      <p style={{ color: message.includes('success') ? 'green' : 'red' }}>{message}</p>
+      <p style={{ color: error ? 'red' : 'green' }}>
+        {error ? error : user ? 'Login successful!' : ''}
+      </p>
       <a href="/forgot-password">Forgot Password?</a><br />
       <a href="/register">Don't have an account? Register</a>
     </div>

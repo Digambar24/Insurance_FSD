@@ -20,6 +20,7 @@ import AdminCompanies from './components/Admin/AdminCompanies';
 import AdminPurchases from './components/Admin/AdminPurchases';
 import BuyPage from './pages/BuyPage';
 import MyInsurances from './pages/MyInsurancesPage';
+import PrivateRoute from './components/PrivateRoute'; // ✅ Add this import
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,15 +28,15 @@ import 'react-toastify/dist/ReactToastify.css';
 const Layout = ({ children }) => {
   const location = useLocation();
   const isAuthRoute = ['/login', '/register', '/forgot-password'].includes(location.pathname);
-  const isAdminRoute = location.pathname.startsWith('/admin'); // Check if it's an admin route
+  const isAdminRoute = location.pathname.startsWith('/admin');
   const showCarousel = location.pathname === '/';
 
   return (
     <>
-      {!isAuthRoute && !isAdminRoute && <Navbar />} {/* Only show Navbar if not an admin or auth route */}
+      {!isAuthRoute && !isAdminRoute && <Navbar />}
       {showCarousel && <Carousel />}
       {children}
-      {!isAuthRoute && !isAdminRoute && <Footer />} {/* Only show Footer if not an admin or auth route */}
+      {!isAuthRoute && !isAdminRoute && <Footer />}
     </>
   );
 };
@@ -55,9 +56,38 @@ const App = () => {
           <Route path="/" element={<Layout><Home /></Layout>} />
           <Route path="/partners" element={<Layout><InsurancePartners /></Layout>} />
           <Route path="/insurance/:insuranceType" element={<Layout><InsurancePage /></Layout>} />
-          <Route path="/profile" element={<Layout><ProfilePage /></Layout>} />
-          <Route path="/buy" element={<Layout><BuyPage /></Layout>} />
-          <Route path="/my-insurances" element={<Layout><MyInsurances /></Layout>} />
+
+          {/* ✅ Protected routes */}
+          <Route
+            path="/buy"
+            element={
+              <Layout>
+                <PrivateRoute>
+                  <BuyPage />
+                </PrivateRoute>
+              </Layout>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <Layout>
+                <PrivateRoute>
+                  <ProfilePage />
+                </PrivateRoute>
+              </Layout>
+            }
+          />
+          <Route
+            path="/my-insurances"
+            element={
+              <Layout>
+                <PrivateRoute>
+                  <MyInsurances />
+                </PrivateRoute>
+              </Layout>
+            }
+          />
 
           {/* Admin routes */}
           <Route path="/admin-dashboard" element={<Layout><AdminDashboard /></Layout>} />

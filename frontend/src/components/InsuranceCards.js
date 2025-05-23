@@ -24,31 +24,31 @@ const insuranceItems = [
   {
     title: "Term Insurance",
     img: "https://static.insurancedekho.com/pwa/img/v2_icon_life.svg",
-    link: "/life-insurance/term-insurance",
+    link: "/insurance/term",
     badge: "Save On Tax*",
     badgeColor: "greenchip",
   },
   {
     title: "Investment Plans",
     img: "https://www.insurancedekho.com/pwa/img/v2_icon_investment.svg",
-    link: "/investment-plans",
+    link: "/insurance/investment",
   },
   {
     title: "Business Insurance",
     img: "https://www.insurancedekho.com/pwa/img/business_insurance.svg",
-    link: "/business-insurance",
+    link: "",
     badge: "New",
     badgeColor: "redchip",
   },
   {
     title: "Family Floater",
     img: "https://www.insurancedekho.com/pwa/img/v2_icon_family.svg",
-    link: "/health-insurance/family-floater",
+    link: "",
   },
   {
     title: "Guaranteed Plans",
     img: "https://www.insurancedekho.com/pwa/img/v2_icon_guaranteeReturn.svg",
-    link: "/life-insurance/guaranteed-return-plans",
+    link: "",
   },
   {
     title: "View More",

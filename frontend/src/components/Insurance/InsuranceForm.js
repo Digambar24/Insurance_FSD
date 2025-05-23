@@ -110,6 +110,17 @@ const InsuranceForm = ({ onSubmit }) => {
       const investmentHorizon = parseInt(formData.investmentHorizon) || 5;
       const premium = investmentAmount * 0.05 * investmentHorizon * (1 + companyFactor * 0.01);
       return premium.toFixed(0);
+    } else if (normalizedType === 'familyhealth') {
+      const members = parseInt(formData.familyMembers) || 2;
+      const age = parseInt(formData.ageOfEldest) || 30;
+      const cityFactor = formData.city === 'Mumbai' ? 1.2 : 1;
+      const premium = 3000 + members * 1000 + (age - 30) * 100 * cityFactor * (1 + companyFactor * 0.01);
+      return premium.toFixed(0);
+    } else if (normalizedType === 'guaranteedreturn') {
+      const investmentAmount = parseInt(formData.investmentAmount) || 50000;
+      const policyDuration = parseInt(formData.policyDuration) || 5;
+      const premium = investmentAmount * 0.04 * policyDuration * (1 + companyFactor * 0.01);
+      return premium.toFixed(0);
     } else {
       return 'N/A';
     }
@@ -146,10 +157,10 @@ const InsuranceForm = ({ onSubmit }) => {
       businessType: ['Retail', 'Manufacturing', 'IT', 'Services', 'Others'],
       policyTerm: ['5', '10', '15', '20', '25'],
       investmentHorizon: ['1', '3', '5', '10'],
-      familyMembers: ['1', '2', '3', '4', '5+'],
+      policyDuration: ['1', '3', '5', '7', '10'],
+      familyMembers: ['1', '2', '3', '4', '5'],
       age: Array.from({ length: 60 }, (_, i) => i + 18),
       ageOfEldest: Array.from({ length: 60 }, (_, i) => i + 18),
-      policyDuration: ['1', '3', '5', '7', '10'],
     };
 
     if (options[field]) {
@@ -193,27 +204,20 @@ const InsuranceForm = ({ onSubmit }) => {
       ? '/assets/business.jpeg'
       : normalizedType === 'investment'
       ? '/assets/investment1.jpeg'
+      : normalizedType === 'familyhealth'
+      ? '/assets/family-health.jpeg'
+      : normalizedType === 'guaranteedreturn'
+      ? '/assets/guaranteed-return.jpeg'
       : '/assets/insurance-default.jpg';
 
   return (
     <div className="insurance-form-wrapper">
-      <div className="top-bar">
-        {isLoggedIn && (
-          <button
-            className="logout-btn"
-            onClick={() => {
-              localStorage.removeItem('userInfo');
-              navigate('/');
-            }}
-          >
-            Logout
-          </button>
-        )}
-      </div>
 
       <div className="form-image-layout">
         <form onSubmit={handleSubmit} className="insurance-form">
-          <h2>Get {normalizedType ? normalizedType.charAt(0).toUpperCase() + normalizedType.slice(1) : 'Insurance'} Quote</h2>
+          <h2>
+            Get {normalizedType ? normalizedType.charAt(0).toUpperCase() + normalizedType.slice(1) : 'Insurance'} Quote
+          </h2>
           {fields?.length > 0 ? (
             fields.map((field) => (
               <div key={field} className="form-group">
@@ -225,7 +229,9 @@ const InsuranceForm = ({ onSubmit }) => {
           ) : (
             <p>Please select a valid insurance type.</p>
           )}
-          <button type="submit" className="btn-primary">Get Quote</button>
+          <button type="submit" className="btn-primary">
+            Get Quote
+          </button>
         </form>
 
         <div className="insurance-image-container">
@@ -250,14 +256,16 @@ const InsuranceForm = ({ onSubmit }) => {
                 </tr>
               </thead>
               <tbody>
-                {displayedInsurances.map((company, index) => (
+                {displayedInsurances.map((company, idx) => (
                   <tr key={company._id}>
-                    <td>{index + 1}</td>
-                    <td><img src={company.logoUrl} alt={company.name} width="60" /></td>
+                    <td>{idx + 1}</td>
+                    <td>
+                      <img src={company.logoUrl} alt={company.name} className="company-logo" />
+                    </td>
                     <td>{company.name}</td>
                     <td>₹{calculatePremium(company.name)}</td>
                     <td>
-                      <button className="btn-buy" onClick={() => handleBuy(company)}>
+                      <button onClick={() => handleBuy(company)} className="btn-buy">
                         Buy
                       </button>
                     </td>
@@ -266,8 +274,8 @@ const InsuranceForm = ({ onSubmit }) => {
               </tbody>
             </table>
             {relatedInsurances.length > 5 && (
-              <button className="btn-secondary" onClick={() => setShowAll(!showAll)}>
-                {showAll ? 'Show Less' : 'See More'}
+              <button className="see-more-btn" onClick={() => setShowAll(!showAll)}>
+                {showAll ? 'See Less' : 'See More'}
               </button>
             )}
           </>

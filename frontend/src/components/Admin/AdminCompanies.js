@@ -23,7 +23,16 @@ const AdminCompanies = () => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
+  // Parse and extract token
+  let token = '';
+  try {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    token = userInfo?.token || '';
+  } catch (err) {
+    console.error('[ERROR] Failed to parse userInfo from localStorage:', err);
+    setMessage('Invalid user session. Please login again.');
+    localStorage.removeItem('userInfo');
+  }
 
   const fetchCompanies = async () => {
     try {
@@ -32,7 +41,7 @@ const AdminCompanies = () => {
       });
       setCompanies(data);
     } catch (error) {
-      console.error('Error fetching companies:', error);
+      handleApiError(error, 'fetch companies');
     }
   };
 
@@ -43,22 +52,35 @@ const AdminCompanies = () => {
       });
       setCategories(data);
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      handleApiError(error, 'fetch categories');
+    }
+  };
+
+  const handleApiError = (error, action) => {
+    console.error(`[ERROR] Failed to ${action}:`, error.response || error.message);
+    if (error.response?.status === 401) {
+      setMessage('Authorization failed. Please login again.');
+      localStorage.removeItem('userInfo');
+    } else {
+      setMessage(`Failed to ${action}: ${error.response?.data?.message || error.message}`);
     }
   };
 
   useEffect(() => {
+    if (!token) {
+      setMessage('No authentication token found. Please login.');
+      return;
+    }
     fetchCompanies();
     fetchCategories();
-  }, []);
+  }, [token]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    if (files && files.length > 0) {
-      setForm((prev) => ({ ...prev, [name]: files[0] }));
-    } else {
-      setForm((prev) => ({ ...prev, [name]: value }));
-    }
+    setForm((prev) => ({
+      ...prev,
+      [name]: files ? files[0] : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -73,28 +95,32 @@ const AdminCompanies = () => {
     if (form.logo) formData.append('logo', form.logo);
     if (form.brochure) formData.append('brochure', form.brochure);
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data',
-      },
-    };
-
     try {
       if (editingId) {
-        await axios.put(`${BASE_URL}/${editingId}`, formData, config);
+        await axios.put(`${BASE_URL}/${editingId}`, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
         setMessage('Company updated successfully!');
       } else {
-        await axios.post(BASE_URL, formData, config);
+        await axios.post(BASE_URL, formData, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data',
+          },
+        });
         setMessage('Company added successfully!');
       }
+
       setForm({ name: '', insuranceType: '', category: '', logo: null, brochure: null });
       setEditingId(null);
       setExistingLogo('');
       setExistingBrochure('');
       fetchCompanies();
     } catch (error) {
-      setMessage('Operation failed: ' + (error.response?.data?.message || error.message));
+      handleApiError(error, editingId ? 'update company' : 'add company');
     } finally {
       setLoading(false);
     }
@@ -115,7 +141,6 @@ const AdminCompanies = () => {
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this company?')) return;
-
     try {
       await axios.delete(`${BASE_URL}/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -123,7 +148,7 @@ const AdminCompanies = () => {
       setMessage('Company deleted successfully!');
       fetchCompanies();
     } catch (error) {
-      setMessage('Delete failed: ' + (error.response?.data?.message || error.message));
+      handleApiError(error, 'delete company');
     }
   };
 
@@ -152,12 +177,14 @@ const AdminCompanies = () => {
           placeholder="Company Name"
           required
         />
+
         <select name="insuranceType" value={form.insuranceType} onChange={handleChange} required>
           <option value="">Select Type</option>
           {insuranceTypes.map((type) => (
             <option key={type} value={type}>{type}</option>
           ))}
         </select>
+
         <select name="category" value={form.category} onChange={handleChange} required>
           <option value="">Select Category</option>
           {categories.map((cat) => (
@@ -201,18 +228,18 @@ const AdminCompanies = () => {
                 <td>{company.insuranceType}</td>
                 <td>{company.category?.name || 'N/A'}</td>
                 <td>
-                  {company.logoUrl && <img src={company.logoUrl} alt="logo" className="admin-logo" />}
-                </td>
-                <td>
-                  {company.brochure && (
-                    <a href={company.brochure} target="_blank" rel="noopener noreferrer">
-                      Brochure
-                    </a>
+                  {company.logoUrl && (
+                    <img src={company.logoUrl} alt="logo" className="admin-logo" />
                   )}
                 </td>
                 <td>
+                  {company.brochure ? (
+                    <a href={company.brochure} target="_blank" rel="noopener noreferrer">View</a>
+                  ) : 'N/A'}
+                </td>
+                <td>
                   <button onClick={() => handleEdit(company)}>Edit</button>
-                  <button onClick={() => handleDelete(company._id)} className="admin-delete">Delete</button>
+                  <button onClick={() => handleDelete(company._id)}>Delete</button>
                 </td>
               </tr>
             ))}

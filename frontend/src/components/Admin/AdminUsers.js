@@ -9,11 +9,10 @@ const AdminUsers = () => {
   const BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
   const fetchUsers = async () => {
-    const userInfo = localStorage.getItem('userInfo');
-    const token = userInfo ? JSON.parse(userInfo).token : null;
-    const user = userInfo ? JSON.parse(userInfo) : null;
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user'));
 
-    if (!token || user.role !== 'admin') {
+    if (!token || user?.role !== 'admin') {
       setError('Access denied. Admins only.');
       setLoading(false);
       return;
@@ -36,7 +35,7 @@ const AdminUsers = () => {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this user?')) return;
 
-    const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
+    const token = localStorage.getItem('token');
 
     try {
       await axios.delete(`${BASE_URL}/api/admin/users/${id}`, {

@@ -54,11 +54,11 @@ const initiateRazorpayPayment = async (req, res, next) => {
 
     const razorpay = new Razorpay({
       key_id: process.env.RAZORPAY_KEY_ID,
-      key_secret: process.env.RAZORPAY_KEY_SECRET, // ✅ FIXED: Use correct env key
+      key_secret: process.env.RAZORPAY_KEY_SECRET,
     });
 
     const order = await razorpay.orders.create({
-      amount: purchase.amount * 100, // Razorpay expects amount in paisa
+      amount: purchase.amount * 100,
       currency: 'INR',
       receipt: `receipt_${purchase._id}`,
     });
@@ -78,7 +78,7 @@ const initiateRazorpayPayment = async (req, res, next) => {
   }
 };
 
-// ✅ Verify Razorpay Payment
+// ✅ Verify Razorpay Payment (with 365 days validity logic)
 const verifyPayment = async (req, res, next) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature, purchaseId } = req.body;
@@ -88,7 +88,7 @@ const verifyPayment = async (req, res, next) => {
     }
 
     const expectedSignature = crypto
-      .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET) // ✅ FIXED: Correct secret
+      .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
       .update(`${razorpay_order_id}|${razorpay_payment_id}`)
       .digest('hex');
 
@@ -102,6 +102,12 @@ const verifyPayment = async (req, res, next) => {
     if (isValid) {
       purchase.paymentStatus = 'Success';
       purchase.razorpayPaymentId = razorpay_payment_id;
+
+      // ✅ Add 365 days validity
+      const validTill = new Date();
+      validTill.setDate(validTill.getDate() + 365);
+      purchase.validTill = validTill;
+
       await purchase.save();
       return res.status(200).json({ message: 'Payment verified successfully' });
     } else {

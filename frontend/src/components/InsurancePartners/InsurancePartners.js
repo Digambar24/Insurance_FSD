@@ -52,7 +52,7 @@ const InsurancePartners = () => {
 
         <div className="tabs-container">
           <ul className="tabs-list">
-            {['All', 'General', 'Car', 'Bike', 'Health', 'Term', 'Life', 'Investment', 'Business', 'Travel'].map((type) => (
+            {['All',  'Car', 'Bike', 'Health', 'Term', 'Life', 'Investment',].map((type) => (
               <li
                 key={type}
                 className={selectedType === type ? 'active' : ''}

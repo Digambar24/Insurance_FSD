@@ -36,12 +36,6 @@ const AdminDashboard = () => {
     fetchSummary();
   }, [navigate]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    navigate('/');
-  };
-
   if (loading) return <p style={{ textAlign: 'center' }}>Loading dashboard...</p>;
 
   return (
@@ -50,7 +44,6 @@ const AdminDashboard = () => {
       <div className="admin-dashboard-container">
         <div className="admin-dashboard-header">
           <h1>Admin Dashboard</h1>
-          <button onClick={handleLogout} className="logout-button">Logout</button>
         </div>
 
         <div className="admin-dashboard-cards">

@@ -7,6 +7,14 @@ const PrivateRoute = ({ children }) => {
   const location = useLocation();
 
   if (!token) {
+    // ✅ Always save pathname and state explicitly
+    localStorage.setItem(
+      'redirectAfterLogin',
+      JSON.stringify({
+        pathname: location.pathname,
+        state: location.state || null,
+      })
+    );
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 

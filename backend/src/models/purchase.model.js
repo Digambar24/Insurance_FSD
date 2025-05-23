@@ -32,6 +32,9 @@ const purchaseSchema = new mongoose.Schema(
     razorpayOrderId: String,
     razorpayPaymentId: String,
     failureReason: String, // New field to store failure reason
+    validTill: {
+      type: Date, // New field for insurance expiration date
+    },
   },
   { timestamps: true }
 );

@@ -9,8 +9,11 @@ const MyInsurances = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const { user } = useSelector((state) => state.auth); // <-- get user from Redux
+  const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  // Style object for center alignment
+  const centerStyle = { textAlign: 'center', verticalAlign: 'middle' };
 
   useEffect(() => {
     const fetchPurchases = async () => {
@@ -43,30 +46,41 @@ const MyInsurances = () => {
 
   return (
     <div className="container" style={{ padding: '2rem' }}>
-      <h2>My Insurance Purchases</h2>
+      <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>My Insurance Purchases</h2>
       {purchases.length === 0 ? (
-        <p>You haven't purchased any insurances yet.</p>
+        <p style={{ textAlign: 'center' }}>You haven't purchased any insurances yet.</p>
       ) : (
         <table className="table table-bordered">
           <thead>
             <tr>
-              <th>Sr No</th>
-              <th>Insurance Name</th>
-              <th>Amount</th>
-              <th>Payment Status</th>
-              <th>Date</th>
+              <th style={centerStyle}>Sr No</th>
+              <th style={centerStyle}>Insurance Name</th>
+              <th style={centerStyle}>Amount</th>
+              <th style={centerStyle}>Payment Status</th>
+              <th style={centerStyle}>Purchase Date</th>
+              <th style={centerStyle}>Expiry Date</th>
             </tr>
           </thead>
           <tbody>
-            {purchases.map((purchase, index) => (
-              <tr key={purchase._id}>
-                <td>{index + 1}</td>
-                <td>{purchase.insurance?.name || 'N/A'}</td>
-                <td>₹{purchase.amount}</td>
-                <td>{purchase.paymentStatus}</td>
-                <td>{new Date(purchase.createdAt).toLocaleDateString()}</td>
-              </tr>
-            ))}
+            {purchases.map((purchase, index) => {
+              const purchaseDate = new Date(purchase.createdAt);
+              let expiryDate = null;
+              if (purchase.paymentStatus.toLowerCase() === 'success') {
+                expiryDate = new Date(purchaseDate);
+                expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+              }
+
+              return (
+                <tr key={purchase._id}>
+                  <td style={centerStyle}>{index + 1}</td>
+                  <td style={centerStyle}>{purchase.insurance?.name || 'N/A'}</td>
+                  <td style={centerStyle}>₹{purchase.amount}</td>
+                  <td style={centerStyle}>{purchase.paymentStatus}</td>
+                  <td style={centerStyle}>{purchaseDate.toLocaleDateString()}</td>
+                  <td style={centerStyle}>{expiryDate ? expiryDate.toLocaleDateString() : 'N/A'}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       )}

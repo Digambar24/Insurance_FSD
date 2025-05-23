@@ -13,27 +13,6 @@ const BuyPage = () => {
   const [loading, setLoading] = useState(true);
   const [isPaying, setIsPaying] = useState(false);
 
-  // Load Razorpay checkout script dynamically
-  const loadRazorpayScript = () => {
-    return new Promise((resolve) => {
-      if (window.Razorpay) {
-        resolve(true);
-        return;
-      }
-      const script = document.createElement('script');
-      script.src = 'https://checkout.razorpay.com/v1/checkout.js';
-      script.onload = () => {
-        console.log('Razorpay SDK loaded');
-        resolve(true);
-      };
-      script.onerror = () => {
-        console.error('Failed to load Razorpay SDK');
-        resolve(false);
-      };
-      document.body.appendChild(script);
-    });
-  };
-
   const getUserInfo = () => {
     const userInfo = localStorage.getItem('userInfo');
     return userInfo ? JSON.parse(userInfo) : null;
@@ -57,29 +36,21 @@ const BuyPage = () => {
   }, [location, navigate]);
 
   const handlePayment = async () => {
-    setErrorMessage('');
     if (!insuranceData?.insuranceId || !insuranceData.price) {
       setErrorMessage('Insurance data is incomplete.');
       return;
     }
 
-    setIsPaying(true);
-
-    const scriptLoaded = await loadRazorpayScript();
-    if (!scriptLoaded) {
-      setErrorMessage('Failed to load Razorpay SDK. Check your internet connection.');
-      setIsPaying(false);
-      return;
-    }
-
-    const token = getUserInfo()?.token;
-    if (!token) {
-      setErrorMessage('You must be logged in to buy insurance.');
-      setIsPaying(false);
-      return;
-    }
-
     try {
+      setIsPaying(true);
+      const token = getUserInfo()?.token;
+
+      if (!token) {
+        setErrorMessage('You must be logged in to buy insurance.');
+        setIsPaying(false);
+        return;
+      }
+
       // Step 1: Create Purchase
       const purchaseRes = await axios.post(
         'http://localhost:5000/api/purchases',
@@ -97,7 +68,6 @@ const BuyPage = () => {
       );
 
       const purchaseId = purchaseRes.data._id;
-      if (!purchaseId) throw new Error('Failed to create purchase');
 
       // Step 2: Create Razorpay Order
       const orderRes = await axios.get(
@@ -109,12 +79,9 @@ const BuyPage = () => {
         }
       );
 
-      // Important: Razorpay order id key is 'id'
-      const { id: razorpayOrderId, amount } = orderRes.data;
+      const { razorpayOrderId, amount } = orderRes.data;
 
-      if (!razorpayOrderId || !amount) throw new Error('Failed to get Razorpay order info');
-
-      // Step 2.5: Get Razorpay Key
+      // Step 2.5: Get Razorpay Key from backend
       const keyRes = await axios.get('http://localhost:5000/api/config/razorpay-key', {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -122,15 +89,14 @@ const BuyPage = () => {
       });
 
       const razorpayKey = keyRes.data.key;
-      if (!razorpayKey) throw new Error('Razorpay key not received from server.');
 
-      if (!window.Razorpay) {
-        setErrorMessage('Razorpay SDK not available.');
+      if (!razorpayKey) {
+        setErrorMessage('Razorpay key not received from server.');
         setIsPaying(false);
         return;
       }
 
-      // Step 3: Open Razorpay payment modal
+      // Step 3: Razorpay Modal
       const options = {
         key: razorpayKey,
         amount: amount,
@@ -187,8 +153,8 @@ const BuyPage = () => {
       const rzp = new window.Razorpay(options);
       rzp.open();
     } catch (err) {
-      console.error('Payment initiation error:', err.response?.data || err.message || err);
-      setErrorMessage(err.response?.data?.message || err.message || 'Something went wrong during payment.');
+      console.error('Payment initiation error:', err.response?.data || err);
+      setErrorMessage(err.response?.data?.message || 'Something went wrong during payment.');
       setIsPaying(false);
     }
   };

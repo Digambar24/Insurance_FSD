@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   loginStart,
@@ -14,10 +14,12 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, error } = useSelector(state => state.auth);
+  const location = useLocation();
+
+  const { user, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (user) {
+    if (user && user.role) {
       redirectAfterLogin(user.role);
     }
   }, [user]);
@@ -28,12 +30,20 @@ const LoginPage = () => {
     if (redirectData) {
       const parsedRedirect = JSON.parse(redirectData);
       localStorage.removeItem('redirectAfterLogin');
-      navigate('/buy', { state: parsedRedirect });
+
+      if (parsedRedirect.pathname === '/buy') {
+        navigate('/buy', { state: parsedRedirect.state || {} });
+      } else {
+        navigate(parsedRedirect.pathname);
+      }
     } else {
       if (role === 'admin') {
-        navigate('/admin-dashboard');
+        navigate('/admin-dashboard', { replace: true });
+      } else if (role === 'user') {
+        navigate('/profile', { replace: true });
       } else {
-        navigate('/profile');
+        console.warn('Unknown role:', role);
+        navigate('/', { replace: true });
       }
     }
   };
@@ -47,9 +57,18 @@ const LoginPage = () => {
         password,
       });
 
+      if (!data.token || !data.role) {
+        throw new Error('Invalid response from server');
+      }
+
+      // ✅ Save user info to localStorage
+      localStorage.setItem('userInfo', JSON.stringify(data));
+
       dispatch(loginSuccess({ user: data, token: data.token }));
     } catch (error) {
-      dispatch(loginFailure(error.response?.data?.message || 'Login failed'));
+      const message =
+        error.response?.data?.message || error.message || 'Login failed';
+      dispatch(loginFailure(message));
     }
   };
 
@@ -64,24 +83,33 @@ const LoginPage = () => {
           />
         </a>
       </div>
+
       <h2>Login</h2>
+
       <input
         type="email"
         placeholder="Email"
         value={email}
-        onChange={e => setEmail(e.target.value)}
-      /><br />
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <br />
+
       <input
         type="password"
         placeholder="Password"
         value={password}
-        onChange={e => setPassword(e.target.value)}
-      /><br />
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <br />
+
       <button onClick={handleLogin}>Login</button>
-      <p style={{ color: error ? 'red' : 'green' }}>
+
+      <p style={{ color: error ? 'red' : user ? 'green' : 'black' }}>
         {error ? error : user ? 'Login successful!' : ''}
       </p>
-      <a href="/forgot-password">Forgot Password?</a><br />
+
+      <a href="/forgot-password">Forgot Password?</a>
+      <br />
       <a href="/register">Don't have an account? Register</a>
     </div>
   );

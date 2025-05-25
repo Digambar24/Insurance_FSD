@@ -6,6 +6,7 @@ import '../styles/main.css';
 
 const MyInsurances = () => {
   const [purchases, setPurchases] = useState([]);
+  const [expiringSoon, setExpiringSoon] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -30,6 +31,21 @@ const MyInsurances = () => {
         };
         const { data } = await axios.get('http://localhost:5000/api/purchases/my', config);
         setPurchases(data);
+
+        // Check for expiry within next 7 days
+        const today = new Date();
+        const sevenDaysFromNow = new Date();
+        sevenDaysFromNow.setDate(today.getDate() + 7);
+
+        const expiring = data.filter((purchase) => {
+          if (purchase.paymentStatus.toLowerCase() !== 'success') return false;
+          const purchaseDate = new Date(purchase.createdAt);
+          const expiryDate = new Date(purchaseDate);
+          expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+          return expiryDate >= today && expiryDate <= sevenDaysFromNow;
+        });
+
+        setExpiringSoon(expiring);
       } catch (error) {
         setError('Failed to load purchases');
         console.error('Failed to load purchases:', error);
@@ -47,6 +63,14 @@ const MyInsurances = () => {
   return (
     <div className="container" style={{ padding: '2rem' }}>
       <h2 style={{ textAlign: 'center', marginBottom: '1.5rem' }}>My Insurance Purchases</h2>
+
+      {/* Optional notification about expiring insurances */}
+      {expiringSoon.length > 0 && (
+        <div className="alert alert-warning text-center">
+          You have {expiringSoon.length} insurance{expiringSoon.length > 1 ? 's' : ''} expiring soon!
+        </div>
+      )}
+
       {purchases.length === 0 ? (
         <p style={{ textAlign: 'center' }}>You haven't purchased any insurances yet.</p>
       ) : (

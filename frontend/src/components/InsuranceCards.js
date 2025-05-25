@@ -1,6 +1,6 @@
 // src/components/InsuranceCards.js
 import React from 'react';
-import { Link } from 'react-router-dom'; // ✅ Import Link
+import { Link } from 'react-router-dom';
 import '../styles/main.css';
 
 const insuranceItems = [

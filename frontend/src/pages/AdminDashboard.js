@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import Navbar from '../components/Navbar'; // Make sure this path is correct
+import Navbar from '../components/Navbar'; 
 import '../styles/main.css';
 
 const AdminDashboard = () => {

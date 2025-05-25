@@ -9,7 +9,7 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
-  const justLoggedOut = useRef(false); // Track logout action
+  const justLoggedOut = useRef(false);
 
   useEffect(() => {
     if (!user && !justLoggedOut.current) {
